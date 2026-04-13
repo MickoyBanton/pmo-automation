@@ -1,0 +1,42 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "Website Upgrade",
+      "owner": "Alice",
+      "start_date": "2026-04-01",
+      "end_date": "2026-05-01"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "project_id": 1,
+      "name": "Design UI",
+      "status": "done",
+      "deadline": "2026-04-05"
+    },
+    {
+      "id": 2,
+      "project_id": 1,
+      "name": "Build Backend",
+      "status": "in_progress",
+      "deadline": "2026-04-10"
+    },
+    {
+      "id": 3,
+      "project_id": 1,
+      "name": "Testing",
+      "status": "todo",
+      "deadline": "2026-04-08"
+    }
+  ],
+  "risks": [
+    {
+      "id": 1,
+      "project_id": 1,
+      "description": "Tight deadline",
+      "severity": "high"
+    }
+  ]
+}
