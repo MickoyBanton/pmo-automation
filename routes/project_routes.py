@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from models import Project, Task, Risk
+from services.audit_service import run_audit
 from services.report_service import generate_project_report
 
 project_bp = Blueprint("project_bp", __name__)
@@ -18,8 +19,8 @@ def get_projects():
     ])
 
 
-@project_bp.route("/report/<int:project_id>", methods=["GET"])
-def get_report(project_id):
+@project_bp.route("/full-report/<int:project_id>", methods=["GET"])
+def full_report(project_id):
     project = Project.query.get(project_id)
 
     if not project:
@@ -28,12 +29,11 @@ def get_report(project_id):
     tasks = Task.query.filter_by(project_id=project_id).all()
     risks = Risk.query.filter_by(project_id=project_id).all()
 
-    # convert to dict format for existing service
+    # 🔹 Report Data
     tasks_data = [
         {"status": t.status, "deadline": str(t.deadline)}
         for t in tasks
     ]
-
     risks_data = [{} for _ in risks]
 
     report = generate_project_report(
@@ -42,4 +42,12 @@ def get_report(project_id):
         risks_data
     )
 
-    return jsonify(report)
+    # 🔹 Audit Data
+    audit = run_audit(project, tasks, risks)
+
+    # 🔥 Combined Response
+    return jsonify({
+        "project": project.name,
+        "report": report,
+        "audit": audit
+    })
