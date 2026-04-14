@@ -1,24 +1,32 @@
-class Project:
-    def __init__(self, id, name, owner, start_date, end_date):
-        self.id = id
-        self.name = name
-        self.owner = owner
-        self.start_date = start_date
-        self.end_date = end_date
+from extensions import db
+
+class Project(db.Model):
+    __tablename__ = "project"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    owner = db.Column(db.String(100))
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+
+    tasks = db.relationship("Task", backref="project", lazy=True)
+    risks = db.relationship("Risk", backref="project", lazy=True)
 
 
-class Task:
-    def __init__(self, id, project_id, name, status, deadline):
-        self.id = id
-        self.project_id = project_id
-        self.name = name
-        self.status = status
-        self.deadline = deadline
+class Task(db.Model):
+    __tablename__ = "task"
+
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"))
+    name = db.Column(db.String(100))
+    status = db.Column(db.String(50))
+    deadline = db.Column(db.Date)
 
 
-class Risk:
-    def __init__(self, id, project_id, description, severity):
-        self.id = id
-        self.project_id = project_id
-        self.description = description
-        self.severity = severity
+class Risk(db.Model):
+    __tablename__ = "risk"
+
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"))
+    description = db.Column(db.String(255))
+    severity = db.Column(db.String(50))
