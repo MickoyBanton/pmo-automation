@@ -41,3 +41,95 @@ This system simulates real-world enterprise workflows by aggregating project dat
 
 ### 🔗 Unified Reporting Endpoint
 - Combines reporting and audit insights into a single API response
+
+
+---
+
+## 🧱 Tech Stack
+
+- **Backend:** Flask  
+- **Database:** PostgreSQL  
+- **ORM:** SQLAlchemy  
+- **Language:** Python  
+
+---
+
+## 📡 API Endpoints
+
+### 🔹 Get All Projects
+GET /projects
+
+### 🔥 Full Project Insights
+GET /full-report/<project_id>
+
+
+Returns:
+- Project performance metrics
+- Compliance audit results
+- Health status classification
+
+---
+
+## 📊 Sample Output
+
+```json
+{
+  "project": "Website Upgrade",
+  "status": "At Risk",
+  "report": {
+    "completion_percentage": 66.67,
+    "total_tasks": 3,
+    "overdue_tasks": 1,
+    "risk_count": 1
+  },
+  "audit": {
+    "compliance_score": 80,
+    "issue_count": 2,
+    "issues": [
+      "Task 'Testing' is overdue",
+      "Project deadline passed but tasks are still incomplete"
+    ]
+  }
+}
+```
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/MickoyBanton/pmo-automation
+cd pmo-automation
+```
+
+### 2. Create virtual environment
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure database
+
+Update `config.py`:
+```text
+postgresql://<username>:<password>@localhost:5432/pmo_db
+```
+
+### 5. Initialize database
+```bash
+python init_db.py
+```
+
+### 6. Seed data
+```bash
+python seed_db.py
+```
+
+### 7. Run the application
+```bash
+python app.py
+```
