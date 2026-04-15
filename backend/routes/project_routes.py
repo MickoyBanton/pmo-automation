@@ -42,6 +42,15 @@ def full_report(project_id):
         risks_data
     )
 
+    tasks_list = [
+    {
+        "name": t.name,
+        "status": t.status,
+        "deadline": str(t.deadline)
+    }
+    for t in tasks
+]
+
     # 🔹 Audit Data
     audit = run_audit(project, tasks, risks)
 
@@ -49,5 +58,6 @@ def full_report(project_id):
     return jsonify({
         "project": project.name,
         "report": report,
-        "audit": audit
+        "audit": audit,
+        "tasks": tasks_list
     })
