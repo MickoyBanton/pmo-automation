@@ -14,7 +14,9 @@ def get_projects():
         {
             "id": p.id,
             "name": p.name,
-            "owner": p.owner
+            "owner": p.owner,
+            "start_date": p.start_date.strftime("%Y-%m-%d"),
+            "end_date": p.end_date.strftime("%Y-%m-%d"),
         } for p in projects
     ])
 
