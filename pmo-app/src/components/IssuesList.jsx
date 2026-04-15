@@ -6,7 +6,7 @@ export default function IssuesList({ audit }) {
       {audit.issues.length === 0 ? (
         <p>No issues 🎉</p>
       ) : (
-        <ul>
+        <ul className="list-unstyled">
           {audit.issues.map((issue, index) => (
             <li key={index} style={{ color: "red" }}>
               {issue}

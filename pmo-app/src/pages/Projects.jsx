@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "../services/api";
-import { useNavigate } from "react-router-dom";
+import ProjectCard from "../components/ProjectCard";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getProjects().then(setProjects);
@@ -12,17 +11,13 @@ export default function Projects() {
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4 text-center">Projects</h2>
+      <h2 className="text-center mb-4">Projects</h2>
 
-      <div className="list-group">
+      <div className="row">
         {projects.map((p) => (
-          <button
-            key={p.id}
-            className="list-group-item list-group-item-action"
-            onClick={() => navigate(`/project/${p.id}`)}
-          >
-            <strong>{p.name}</strong> — {p.owner}
-          </button>
+          <div className="col-md-4 mb-3" key={p.id}>
+            <ProjectCard project={p} />
+          </div>
         ))}
       </div>
     </div>
